@@ -1,0 +1,5 @@
+services:
+  ts-express-server:
+    build: .
+    ports:
+      - "2077:2077"
