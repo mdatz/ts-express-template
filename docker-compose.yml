@@ -3,3 +3,5 @@ services:
     build: .
     ports:
       - "2077:2077"
+    environment:
+      - PORT=2077

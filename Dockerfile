@@ -1,15 +1,21 @@
 FROM node:20 as build
 
-WORKDIR /app
+WORKDIR /
 
 COPY package*.json ./
 
-RUN npm i
+RUN npm ci
 
 COPY . .
 
-FROM build as production
-
-ENV NODE_PATH=./build
-
 RUN npm run build
+
+RUN npm prune --production
+
+FROM build as deploy
+
+WORKDIR /dist
+
+COPY --from=build /build /dist
+
+CMD ["node", "index.js"]
